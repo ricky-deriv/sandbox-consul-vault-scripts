@@ -21,7 +21,7 @@ if [[ -f ~/.ssh/$KEY_PAIR_NAME ]]; then
 else 
     echo "key-pair doesn't exist"
     echo "generating key-pair"
-    ssh-keygen -t rsa -C "$KEY_PAIR_NAME" -f ~/.ssh/$KEY_PAIR_NAME -P ""
+    ssh-keygen -t rsa -m pem -C "$KEY_PAIR_NAME" -f ~/.ssh/$KEY_PAIR_NAME -P ""
 fi
 
 echo "exporting public key to aws key-pair..."
