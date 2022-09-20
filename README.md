@@ -5,6 +5,7 @@
 - generate if not exist a key-pair and upload to aws key pairs: import_key_pair.sh
 - create security groupn and rule to allow inbound ssh access from anywhere and create 6 ec2 instances: create_instances.sh
 - set hostnames and fill /etc/hosts: get_update_hostnames.sh
+- install packages and consul in instances: bulk_install_for_consul.sh
 
 ## Setting up AWS CLI for the sandbox
 file: setup_aws_cli.sh
@@ -40,4 +41,11 @@ file: get_update_hostnames.sh
   * update /etc/hosts to contain name resolutions for all instances.
 ```
 bash get_update_hostnames.sh [instance id] [instance id] [instance id] 
+```
+
+## Install packages and consul in instances
+file: bulk_install_for_consul.sh
+* install yum-utils and consul.
+```
+bash bulk_install_for_consul.sh [instance dns name] [instance dns name] ...
 ```
