@@ -15,6 +15,7 @@ KEY_PAIR_NAME="sandbox-key"
 
 instances_ids=($@)
 instances_public_dns_names=()
+private_ips=()
 hosts_content=""
 instance_index=0
 
@@ -28,6 +29,7 @@ do
     host_content=""
 
     private_ip=$(aws ec2 describe-instances --instance-ids $id --query 'Reservations[].Instances[].PrivateIpAddress' | jq -r .[])
+    private_ips+=($private_ip)
     if [ $instance_index -lt 3 ]
     then 
         host_content="\n$private_ip consul-server$instance_index.sandbox.com consul-server$instance_index"
@@ -50,5 +52,6 @@ do
     fi
     instance_index=$((instance_index+1))
 done
-# echo "${instances_public_dns_names[*]}"
+echo "${instances_public_dns_names[*]}"
+echo "${private_ips[*]}"
 echo "[complete] changing hostname and adding hosts to /etc/hosts"
