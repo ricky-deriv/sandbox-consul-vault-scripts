@@ -26,10 +26,12 @@ aws ec2 authorize-security-group-ingress \
     --port 22 \
     --cidr 0.0.0.0/0
 
-for i in {1..5}
+# debian ami: ami-09a41e26df464c548
+
+for i in {1..6}
 do 
     ec2_info=$(aws ec2 run-instances \
-	--image-id ami-09a41e26df464c548 \
+	--image-id ami-05fa00d4c63e32376 \
 	--instance-type t2.micro \
     --security-groups default-security \
 	--key-name $KEY_PAIR_NAME | jq .Instances[].InstanceId)
