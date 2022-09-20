@@ -30,11 +30,23 @@ aws ec2 authorize-security-group-ingress \
 
 for i in {1..6}
 do 
-    ec2_info=$(aws ec2 run-instances \
-	--image-id ami-05fa00d4c63e32376 \
-	--instance-type t2.micro \
-    --security-groups default-security \
-	--key-name $KEY_PAIR_NAME | jq .Instances[].InstanceId)
+    if [ $i -lt 3 ]
+    then 
+        ec2_info=$(aws ec2 run-instances \
+        --image-id ami-05fa00d4c63e32376 \
+        --instance-type t2.micro \
+        --security-groups default-security \
+        --key-name $KEY_PAIR_NAME \
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=consul-server$i}]" | jq .Instances[].InstanceId)
+    else 
+        ec2_info=$(aws ec2 run-instances \
+        --image-id ami-05fa00d4c63e32376 \
+        --instance-type t2.micro \
+        --security-groups default-security \
+        --key-name $KEY_PAIR_NAME \
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=consul-client$i}]" | jq .Instances[].InstanceId)
+    fi
+
 
     INSTANCE_IDS+=( $ec2_info )
 done
