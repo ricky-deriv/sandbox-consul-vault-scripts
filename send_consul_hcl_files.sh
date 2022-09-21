@@ -40,7 +40,7 @@ do
     ssh -i ~/.ssh/$KEY_PAIR_NAME ec2-user@$public_dns_name "sudo mv ~/consul.hcl /etc/consul.d"
 
     echo "starting consul service and printing members..."
-    ssh -i ~/.ssh/$KEY_PAIR_NAME ec2-user@$public_dns_name "sudo systemctl stop consul; sudo systemctl enable consul && sudo systemctl start consul; sudo systemctl status consul; consul members"
+    ssh -i ~/.ssh/$KEY_PAIR_NAME ec2-user@$public_dns_name "sudo systemctl stop consul; sudo systemctl enable consul && sudo systemctl start consul; sudo systemctl status consul;"
 
     instance_index=$((instance_index+1))
 done
