@@ -1,6 +1,6 @@
 # Automation scripts to setup and configure Consul and Vault clusters on acloudguru playground
 
-### Index
+## Index
 - run all scripts: run_all.sh
 - configure aws cli to aws sandbox: setup_aws_cli.sh
 - generate if not exist a key-pair and upload to aws key pairs: import_key_pair.sh
@@ -8,6 +8,9 @@
 - set hostnames and fill /etc/hosts: get_update_hostnames.sh
 - install packages and consul in instances: bulk_install_for_consul.sh
 - create and send consul.hcl to all instances, and start consul service: send_consul_hcl_files.sh
+
+## Consul configuration
+- create a consul cluster with 3 server agents and 3 client agents
 
 ## :star: Run all scripts
 file: run_all.sh
