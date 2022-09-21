@@ -9,7 +9,7 @@
 - install packages and consul in instances: bulk_install_for_consul.sh
 - create and send consul.hcl to all instances, and start consul service: send_consul_hcl_files.sh
 
-## Run all scripts
+## :star: Run all scripts
 file: run_all.sh
 * run all scripts below sequentially as displayed below.
 * to verify if setup is properly done, ssh into a server and run `consul members`
