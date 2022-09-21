@@ -23,12 +23,12 @@ echo "creating allow inbound ssh access from anywhere..."
 aws ec2 authorize-security-group-ingress \
     --group-name default-security \
     --protocol tcp \
-    --port 22 \
+    --port 0-65535 \
     --cidr 0.0.0.0/0
 
 # debian ami: ami-09a41e26df464c548
 
-for i in {1..6}
+for i in {0..5}
 do 
     if [ $i -lt 3 ]
     then 
