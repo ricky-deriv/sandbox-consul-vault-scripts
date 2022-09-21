@@ -51,7 +51,6 @@ do
     INSTANCE_IDS+=( $ec2_info )
 done
 
-echo "${INSTANCE_IDS[*]}"
-
+echo "ids=\"${INSTANCE_IDS[*]}\"" > vars.txt
 
 echo "[complete] creation of ec2 instances is complete!"
