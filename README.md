@@ -8,6 +8,8 @@
 - set hostnames and fill /etc/hosts: get_update_hostnames.sh
 - install packages and consul in instances: bulk_install_for_consul.sh
 - create and send consul.hcl to all instances, and start consul service: send_consul_hcl_files.sh
+- send and move certs, change ownership of /etc/consul.d: send_certs_update_owner.sh
+- restart consul service: restart_consul.sh
 
 ## Consul configuration
 - create a consul cluster with 3 server agents and 3 client agents
@@ -77,4 +79,18 @@ file: send_consul_hcl_files.sh
 * restart consul service
 ```
 bash send_consul_hcl_files.sh [instance id] [instance id] ...
+```
+
+## Send and move certs, and update /etc/consul.d ownership
+file: send_certs_update_owner.sh
+* send certs to /etc/consul.d of instances
+* change ownership of /etc/consul.d to consul
+``` 
+bash send_certs_update_owner.sh [public_dns_name] [public_dns_name] ...
+```
+
+## Restart consul service
+file: restart_consul.sh
+```
+bash restart_consul.sh [public_dns_name] [public_dns_name] ...
 ```
