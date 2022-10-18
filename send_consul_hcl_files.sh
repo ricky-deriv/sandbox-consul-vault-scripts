@@ -17,6 +17,7 @@ echo "creating and sending consul.hcl files..."
 
 instances_ids=($@)
 instance_index=0
+source .secrets/tokens.txt
 
 for id in "${instances_ids[@]}";
 do
@@ -28,9 +29,9 @@ do
     echo "creating consul.hcl file..."
     if [[ $instance_index -lt 3 ]] 
     then
-        bash create_consul_config_file.sh "server" "$private_ip" "$name"
+        bash create_consul_config_file.sh "server" "$private_ip" "$name" "$GOSSIP_KEY" "$instance_index"
     else 
-        bash create_consul_config_file.sh "client" "$private_ip" "$name"
+        bash create_consul_config_file.sh "client" "$private_ip" "$name" "$GOSSIP_KEY" "$instance_index"
     fi
 
     echo "copying consul.hcl file over to remote server..."
@@ -39,8 +40,8 @@ do
     echo "moving file from home dir to /etc/consul.d dir..."
     ssh -i ~/.ssh/$KEY_PAIR_NAME ec2-user@$public_dns_name "sudo mv ~/consul.hcl /etc/consul.d"
 
-    echo "starting consul service and printing members..."
-    ssh -i ~/.ssh/$KEY_PAIR_NAME ec2-user@$public_dns_name "sudo systemctl stop consul; sudo systemctl enable consul && sudo systemctl start consul; sudo systemctl status consul;"
+    # echo "starting consul service and printing members..."
+    # ssh -i ~/.ssh/$KEY_PAIR_NAME ec2-user@$public_dns_name "sudo systemctl stop consul; sudo systemctl enable consul && sudo systemctl start consul; sudo systemctl status consul;"
 
     instance_index=$((instance_index+1))
 done
