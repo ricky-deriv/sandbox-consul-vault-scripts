@@ -23,7 +23,7 @@ echo "adding hostnames to known_hosts file..."
 for id in "${instances_ids[@]}";
 do  
     dns_name=$(aws ec2 describe-instances --instance-ids $id --query 'Reservations[].Instances[].PublicDnsName' | jq -r .[])
-    instances_public_dns_names+=($dns_name)
+    instances_public_dns_names+=("$dns_name")
     # ssh keyscan 
     ssh-keyscan -H $dns_name >> ~/.ssh/known_hosts
     host_content=""
@@ -53,5 +53,6 @@ do
     instance_index=$((instance_index+1))
 done
 echo "${instances_public_dns_names[*]}"
+echo "public_dns_names=\"${instances_public_dns_names[*]}\"" >> vars.txt
 echo "${private_ips[*]}"
 echo "[complete] changing hostname and adding hosts to /etc/hosts"
